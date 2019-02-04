@@ -1,31 +1,20 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Watcher uploader for python 3
+This script is a basic example of using the python watchdog module in conjunction with the requests module in order to monitor
+files and upload them to a swarm cluster using scsp and token auth.
+Currently the script runs in the foreground and will upload files on any newly created file in a monitored directory.
 
-Watcher uploader for python 3.5
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Install python 3 if not already installed. 
+Install the extra modules via pip3. 
+Extra modules are 
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+-python-magic
+-watchdog
+-requests
