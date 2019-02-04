@@ -37,18 +37,18 @@ class Event(FileSystemEventHandler):
         print ('Filesize is:' + str(statinfo), 'bytes')
 
         # next section is the upload itself, we set up vars for the destination
-        domain = "https://tlokko.cloud.caringo.com"
-        bucket="/watchertest/"
+        domain = "https://<insertyourdomainhere>"
+        bucket="/<insertyourbucket>/"
         # set the session up with the tokens etc
         s = requests.Session()
-        cookies = {'token':  '2451784eef409e12e24018060106c317'}
+        cookies = {'token':  'add your token'}
         urlbucket=domain+bucket
         # here we pull the file name and open the file.
         filename = var
         files = {'file': open(var, 'rb')}
         # set up the headers
-        mimet2 = "'{}'".format(mimet)
-        content = "'Content-Type':" + mimet2
+#        mimet2 = "'{}'".format(mimet)
+#        content = "'Content-Type':" + mimet2
 
         # here we do the post.
         r = s.post(urlbucket + filename, data=files, cookies=cookies)
