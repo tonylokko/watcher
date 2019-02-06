@@ -18,3 +18,17 @@ Extra modules are
 -python-magic
 -watchdog
 -requests
+
+modify the config.ini file to point to your destination whereever that is and add your auth token. 
+Fomat for that is 
+[domain]
+domain : myexampledomain.com
+#remember the leading and ending forward slash from bucketdestination
+[bucket]
+bucket : /mybucket/
+
+[token]
+token : tokenvalue
+
+
+

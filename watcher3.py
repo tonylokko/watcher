@@ -20,39 +20,80 @@ from watchdog.events import FileSystemEventHandler
 import requests
 import json
 
+#config from file test
+import configparser
+config = configparser.ConfigParser()
+config.read("config.ini")
+def ConfigSectionMap(section):
+    dict1 = {}
+    options = config.options(section)
+    for option in options:
+        try:
+            dict1[option] = config.get(section, option)
+            if dict1[option] == -1:
+                DebugPrint("skip: %s" % option)
+        except:
+            print("exception on %s!" % option)
+            dict1[option] = None
+        return dict1
+
+
+domain=ConfigSectionMap("domain")['domain']
+bucket = ConfigSectionMap("bucket")['bucket']
+token = ConfigSectionMap("token")['token']
+
+
+def get_platform():
+    platforms = {
+        'linux1' : 'Linux',
+        'linux2' : 'Linux',
+        'darwin' : 'OS X',
+        'win32' : 'Windows',
+    }
+    if sys.platform not in platforms:
+        return sys.platform
+    return platforms[sys.platform]
+operatingsystem = sys.platform
+print(operatingsystem)
+
 # this class overrides the existing Filesystem event handler so we can have it do more stuff.
 class Event(FileSystemEventHandler):
     # on_created is a method that takes action only on newly created files.
     # there are also methods for modified and deleted etc
     def on_created(self, event):
         # here we're getting the name of the file / filepath for a new file.
-        var = event.src_path
-        print (var)
+        filenamefromwatchdog = event.src_path
+        print (filenamefromwatchdog)
         # here we're getting the filesize (sort of unnessacary
         # now but i'm thinking of adding conditional multipart based on size
-        statinfo = os.stat(var).st_size
+        statinfo = os.stat(filenamefromwatchdog).st_size
         # try magic, this is trying to get the mime-type of the file which is
-        mimet = magic.from_file(var, mime=True)
+        mimet = magic.from_file(filenamefromwatchdog, mime=True)
         print(mimet)
         print ('Filesize is:' + str(statinfo), 'bytes')
 
-        # next section is the upload itself, we set up vars for the destination
-        domain = "https://<insertyourdomainhere>"
-        bucket="/<insertyourbucket>/"
+        # next section is the upload itself, vars for the destination have been set up in our config file
         # set the session up with the tokens etc
         s = requests.Session()
-        cookies = {'token':  'add your token'}
+        cookies = {'token':  token }
         urlbucket=domain+bucket
         # here we pull the file name and open the file.
-        filename = var
-        files = {'file': open(var, 'rb')}
+        filename = filenamefromwatchdog
+        files = {'file': open(filenamefromwatchdog, 'rb')}
         # set up the headers
-#        mimet2 = "'{}'".format(mimet)
-#        content = "'Content-Type':" + mimet2
+        mimet2 = "'{}'".format(mimet)
+        content = {'Content-Type': mimet2 }
 
         # here we do the post.
-        r = s.post(urlbucket + filename, data=files, cookies=cookies)
+        r = s.post(urlbucket + filename, data=files, headers=content, cookies=cookies)
         print(r.text)
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
@@ -63,6 +104,7 @@ if __name__ == "__main__":
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
+    get_platform()
     try:
         while True:
             time.sleep(1)
