@@ -63,13 +63,17 @@ class Event(FileSystemEventHandler):
     def on_created(self, event):
         # here we're getting the name of the file / filepath for a new file.
         filenamefromwatchdog = event.src_path
-        print (filenamefromwatchdog)
+        logging.info(filenamefromwatchdog)
+        windowsfilename = filenamefromwatchdog.replace(os.sep, '/')
+        print (windowsfilename)
         # here we're getting the filesize (sort of unnessacary
         # now but i'm thinking of adding conditional multipart based on size
         statinfo = os.stat(filenamefromwatchdog).st_size
+        logging.info("the filesize in bytes is " + str(statinfo))
         # try magic, this is trying to get the mime-type of the file which is
         mimet = magic.from_file(filenamefromwatchdog, mime=True)
         print(mimet)
+        logging.info("mimetype is" + mimet)
         print ('Filesize is:' + str(statinfo), 'bytes')
 
         # next section is the upload itself, vars for the destination have been set up in our config file
@@ -86,6 +90,9 @@ class Event(FileSystemEventHandler):
 
         # here we do the post.
         r = s.post(urlbucket + filename, data=files, headers=content, cookies=cookies)
+        logging.info("the result of the post was " + r.text)
+        logging.info("the returncode for the http return headers were " + str(r.headers))
+        logging.info("the http status code we got was " + str(r.status_code))
         print(r.text)
 
 
@@ -96,7 +103,7 @@ class Event(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO,
+    logging.basicConfig(filename='watcher3.log',level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
     path = sys.argv[1] if len(sys.argv) > 1 else '.'
@@ -104,7 +111,8 @@ if __name__ == "__main__":
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
-    get_platform()
+    runningos = get_platform()
+    print(runningos)
     try:
         while True:
             time.sleep(1)
