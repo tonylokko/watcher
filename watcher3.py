@@ -83,13 +83,13 @@ class Event(FileSystemEventHandler):
         urlbucket=domain+bucket
         # here we pull the file name and open the file.
         filename = filenamefromwatchdog
-        files = {'file': open(filenamefromwatchdog, 'rb')}
+        uploaddata = {'file': open(filenamefromwatchdog, 'rb')}
         # set up the headers
         mimet2 = "'{}'".format(mimet)
         content = {'Content-Type': mimet2 }
 
         # here we do the post.
-        r = s.post(urlbucket + filename, data=files, headers=content, cookies=cookies)
+        r = s.post(urlbucket + filename, data=open(filename, 'rb').read(), headers=content, cookies=cookies)
         logging.info("the result of the post was " + r.text)
         logging.info("the returncode for the http return headers were " + str(r.headers))
         logging.info("the http status code we got was " + str(r.status_code))
