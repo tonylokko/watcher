@@ -19,6 +19,30 @@ Extra modules are
 -watchdog
 -requests
 
+
+The easiest way to do this is via pip. 
+for linux you'll want to use 
+pip3 install x
+so 
+pip3 install requests
+pip3 install watchdog
+pip3 install python-magic
+
+For windows you'll still use pip3 but it'll be in the scripts directory where you installed python3.7
+C:\Program Files\Python37\Scripts\pip 
+
+when you navigate there via and admin command prompt you should be able to just go
+pip install requests
+pip install python-libmagic
+pip install watchdog
+
+you may also need 
+pip install python-magic-bin
+
+Make sure when installing python you install for all users which is a custom install of python for windows. 
+
+
+
 modify the config.ini file to point to your destination whereever that is and add your auth token. 
 Fomat for that is 
 [domain]
