@@ -1,5 +1,0 @@
-Log_file = 
-Watch_folder = 
-Domain = 
-Token = 
-bucket = 
