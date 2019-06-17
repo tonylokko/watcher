@@ -1,0 +1,54 @@
+2019-03-25 22:01:44 - ./.git/index.lock
+2019-03-25 22:04:50 - ./.git/index.lock
+2019-03-25 22:05:47 - ./newfile
+2019-03-25 22:05:47 - the filesize in bytes is 0
+2019-03-25 22:05:47 - mimetype isinode/x-empty
+2019-03-25 22:05:49 - the result of the post was <html><body>New stream created</body></html>
+
+2019-03-25 22:05:49 - the returncode for the http return headers were {'Date': 'Mon, 25 Mar 2019 22:05:49 GMT', 'Gateway-Request-Id': '91A5A99504EF77F0', 'Server': 'CAStor Cluster/10.1.0', 'Via': '1.1 tlokko.cloud.caringo.com (Cloud Gateway SCSP/6.0.0)', 'Gateway-Protocol': 'scsp', 'Castor-System-Cluster': 'gem.tx.caringo.com, gem.tx.caringo.com', 'Location': 'http://tlokko.cloud.caringo.com:443/watchertest/newfile?domain=tlokko.cloud.caringo.com', 'Volume': 'e853a39294f54f5e3cd2a4bcebf0d1b2, 8335615a53a975bf2a1ed0981e54b1a9', 'Entity-MD5': 'gYDVMgBebOM/RBjIreV7Gg==', 'Content-MD5': '1B2M2Y8AsgTpgAmY7PhCfg==', 'Last-Modified': 'Mon, 25 Mar 2019 22:05:48 GMT', 'Stored-Digest': '8180d532005e6ce33f4418c8ade57b1a', 'Castor-System-Version': '1553551548.990', 'ETag': '"f3e667f540d1ac5b1a4aa6d5cbedcdeb"', 'Replica-Count': '2', 'Content-Type': 'text/html', 'Content-Length': '46'}
+2019-03-25 22:05:49 - the http status code we got was 201
+2019-03-25 22:05:56 - ./.newfile.swp
+2019-03-25 22:05:56 - the filesize in bytes is 4096
+2019-03-25 22:05:56 - mimetype isapplication/octet-stream
+2019-03-25 22:05:58 - the result of the post was <html><body>New stream created</body></html>
+
+2019-03-25 22:05:58 - the returncode for the http return headers were {'Date': 'Mon, 25 Mar 2019 22:05:58 GMT', 'Gateway-Request-Id': '0E6381CF20F4B17E', 'Server': 'CAStor Cluster/10.1.0', 'Via': '1.1 tlokko.cloud.caringo.com (Cloud Gateway SCSP/6.0.0)', 'Gateway-Protocol': 'scsp', 'Castor-System-Cluster': 'gem.tx.caringo.com, gem.tx.caringo.com', 'Location': 'http://tlokko.cloud.caringo.com:443/watchertest/.newfile.swp?domain=tlokko.cloud.caringo.com', 'Volume': '5ae0b5eba49f523807df3a2d46b77372, a97c3a0192d0217ffeeaca68b63239af', 'Entity-MD5': 'qHo82wk1uTyWb0/NRKfxRQ==', 'Content-MD5': 'mi4CodXYEBBB6/Oesh1PJA==', 'Last-Modified': 'Mon, 25 Mar 2019 22:05:57 GMT', 'Stored-Digest': 'a87a3cdb0935b93c966f4fcd44a7f145', 'Castor-System-Version': '1553551557.632', 'ETag': '"b705e19b41c83177c350362ec3c69a81"', 'Replica-Count': '2', 'Content-Type': 'text/html', 'Content-Length': '46'}
+2019-03-25 22:05:58 - the http status code we got was 201
+2019-03-25 22:05:58 - ./.newfile.swpx
+2019-03-25 22:06:33 - ./newfile3
+2019-03-25 22:06:33 - the filesize in bytes is 54
+2019-03-25 22:06:33 - mimetype istext/plain
+2019-03-25 22:06:34 - the result of the post was <html><body>New stream created</body></html>
+
+2019-03-25 22:06:34 - the returncode for the http return headers were {'Date': 'Mon, 25 Mar 2019 22:06:34 GMT', 'Gateway-Request-Id': 'D9C2E2A9610DC35A', 'Server': 'CAStor Cluster/10.1.0', 'Via': '1.1 tlokko.cloud.caringo.com (Cloud Gateway SCSP/6.0.0)', 'Gateway-Protocol': 'scsp', 'Castor-System-Cluster': 'gem.tx.caringo.com, gem.tx.caringo.com', 'Location': 'http://tlokko.cloud.caringo.com:443/watchertest/newfile3?domain=tlokko.cloud.caringo.com', 'Volume': 'd17d374ca1f428f49cd1f8737e121f84, 8335615a53a975bf2a1ed0981e54b1a9', 'Entity-MD5': 'huB8sxIzAyrJzkmL7bTcbA==', 'Content-MD5': 'P6Yqpo5sJK8MVpToqfYiwA==', 'Last-Modified': 'Mon, 25 Mar 2019 22:06:33 GMT', 'Stored-Digest': '86e07cb31233032ac9ce498bedb4dc6c', 'Castor-System-Version': '1553551593.743', 'ETag': '"b4bf42614d43bf20a61558f28eaf81bc"', 'Replica-Count': '2', 'Content-Type': 'text/html', 'Content-Length': '46'}
+2019-03-25 22:06:34 - the http status code we got was 201
+2019-03-25 22:06:39 - ./.git/index.lock
+2019-03-25 22:29:43 - ./.git/index.lock
+2019-03-25 22:30:16 - ./.git/index.lock
+2019-03-25 22:31:19 - ./.git/index.lock
+2019-03-25 22:31:43 - ./.git/index.lock
+2019-03-25 22:33:24 - ./logage
+2019-03-25 22:33:24 - mimetype istext/html
+2019-03-25 22:34:00 - ./logage2
+2019-03-25 22:34:00 - mimetype istext/html
+2019-03-25 22:34:03 - the result of the post was <html><body>New stream created</body></html>
+
+2019-03-25 22:34:03 - the returncode for the http return headers were {'Date': 'Mon, 25 Mar 2019 22:34:03 GMT', 'Gateway-Request-Id': 'F2F1419825E9081F', 'Server': 'CAStor Cluster/10.1.0', 'Via': '1.1 tlokko.cloud.caringo.com (Cloud Gateway SCSP/6.0.0)', 'Gateway-Protocol': 'scsp', 'Castor-System-Cluster': 'gem.tx.caringo.com, gem.tx.caringo.com', 'Location': 'http://tlokko.cloud.caringo.com:443/watchertest/logage2?domain=tlokko.cloud.caringo.com', 'Volume': '63f6c6ae85086f98b4de500237785119, e50c136a20cf51b0af1b42453e4cd739', 'Entity-MD5': 'KpDuUd3fM2k3XJasBA0jng==', 'Content-MD5': 'nFC1goNB9OUEkbwnLlWcug==', 'Last-Modified': 'Mon, 25 Mar 2019 22:34:02 GMT', 'Stored-Digest': '2a90ee51dddf3369375c96ac040d239e', 'Castor-System-Version': '1553553242.485', 'ETag': '"cfbd0f7c00cc5cdb9d67a6e27f9e2178"', 'Replica-Count': '2', 'Content-Type': 'text/html', 'Content-Length': '46'}
+2019-03-25 22:34:03 - the http status code we got was 201
+2019-03-25 22:34:34 - ./foobar/logage
+2019-03-25 22:34:34 - mimetype istext/html
+2019-03-25 22:34:36 - the result of the post was <html><body>New stream created</body></html>
+
+2019-03-25 22:34:36 - the returncode for the http return headers were {'Date': 'Mon, 25 Mar 2019 22:34:36 GMT', 'Gateway-Request-Id': '644D424F08D91CDB', 'Server': 'CAStor Cluster/10.1.0', 'Via': '1.1 tlokko.cloud.caringo.com (Cloud Gateway SCSP/6.0.0)', 'Gateway-Protocol': 'scsp', 'Castor-System-Cluster': 'gem.tx.caringo.com, gem.tx.caringo.com', 'Location': 'http://tlokko.cloud.caringo.com:443/watchertest/foobar/logage?domain=tlokko.cloud.caringo.com', 'Volume': 'a97c3a0192d0217ffeeaca68b63239af, 63f6c6ae85086f98b4de500237785119', 'Entity-MD5': 'pP7It6lMVzB2JuPj/mNcGA==', 'Content-MD5': 'nFC1goNB9OUEkbwnLlWcug==', 'Last-Modified': 'Mon, 25 Mar 2019 22:34:35 GMT', 'Stored-Digest': 'a4fec8b7a94c57307626e3e3fe635c18', 'Castor-System-Version': '1553553275.900', 'ETag': '"f04fad534ac2b50d7c249cad82850b3a"', 'Replica-Count': '2', 'Content-Type': 'text/html', 'Content-Length': '46'}
+2019-03-25 22:34:36 - the http status code we got was 201
+2019-03-25 22:34:43 - ./.git/index.lock
+2019-03-25 22:42:17 - ./.idea/workspace.xml___jb_tmp___
+2019-03-25 23:14:43 - ./.git/index.lock
+2019-03-25 23:27:22 - ./.git/index.lock
+2019-03-25 23:40:11 - ./.git/index.lock
+2019-03-25 23:40:18 - ./.git/index.lock
+2019-03-25 23:41:21 - ./.git/index.lock
+2019-03-25 23:48:16 - ./.git/index.lock
+2019-03-25 23:48:39 - ./mtuandnetworkreset.yml
+2019-03-25 23:48:39 - the filesize in bytes is 269
+2019-03-25 23:48:39 - mimetype istext/plain

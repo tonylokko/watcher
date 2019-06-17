@@ -1,0 +1,13 @@
+---
+- hosts: testhosts
+  tasks:
+  - name: set mtu on interfaces
+    lineinfile: 
+       path: /etc/sysconfig/network-scripts/ifcfg-p4p1
+       line: 'MTU=9000'
+       state: present
+
+  - name: restart network
+    service: 
+       name: network
+       state: restarted 
