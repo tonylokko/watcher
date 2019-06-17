@@ -54,5 +54,8 @@ bucket : /mybucket/
 [token]
 token : tokenvalue
 
+Changes in the qbranch are 
+some filename parsing to attempt to garner details from the file name. 
+gui.py, a test gui to create a config file and connection test to make the setup more user friendly. 
 
 
