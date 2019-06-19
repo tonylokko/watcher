@@ -8,8 +8,9 @@ import sys
 import time
 # this is used to read the file and we call the stat to get the filesize
 import os
-# will add logging later
+#logging
 import logging
+import logging.handlers
 # want to get the mimetype to add as header data for the upload
 import magic
 import watchdog
@@ -20,10 +21,53 @@ from watchdog.events import FileSystemEventHandler
 # requests is used for the http upload.
 import requests
 import json
-import psutil
+import datetime
+from pathlib import Path
+import configparser
+'''
+first implement rotating log 
+
+import logging.handlers
+import os
+import zlib
+
+
+def namer(name):
+    return name + ".gz"
+
+
+def rotator(source, dest):
+    print(f'compressing {source} -> {dest}')
+    with open(source, "rb") as sf:
+        data = sf.read()
+        compressed = zlib.compress(data, 9)
+        with open(dest, "wb") as df:
+            df.write(compressed)
+    os.remove(source)
+
+
+err_handler = logging.handlers.TimedRotatingFileHandler('/data/errors.log', when="M", interval=1,
+                                                        encoding='utf-8', backupCount=30, utc=True)
+err_handler.rotator = rotator
+err_handler.namer = namer
+
+logger = logging.getLogger("Rotating Log")
+logger.setLevel(logging.ERROR)
+
+logger.addHandler(err_handler)
+
+
+'''
+#changes to do
+
+
+
+
+
+
+
 
 #config from file test
-import configparser
 config = configparser.ConfigParser()
 config.read("config.ini")
 def ConfigSectionMap(section):
@@ -43,7 +87,9 @@ def ConfigSectionMap(section):
 domain = ConfigSectionMap("domain")['domain']
 bucket = ConfigSectionMap("bucket")['bucket']
 token = ConfigSectionMap("token")['token']
-
+directoryfromfile = ConfigSectionMap("directory")['directory']
+logginglocation = ConfigSectionMap("logfile")["logfile"]
+metas = {}
 
 def get_platform():
     platforms = {
@@ -91,84 +137,74 @@ def pcapinterpret(itemname):
         return metas
 
 
+def httpwrite(metas, itemname, filenamefromwatchdog):
+    s = requests.Session()
+    cookies = {'token': token }
+    urlbucket = domain + bucket
+    filename = itemname
+    r = s.post(urlbucket + filename, data=open(filenamefromwatchdog, 'rb').read(), headers=metas, cookies=cookies)
+    logging.info("the result of the post was " + r.text)
+    logging.info("the returncode for the http return headers were " + str(r.headers))
+    logging.info("the http status code we got was " + str(r.status_code))
+
+
+
+
+
+
 # this class overrides the existing Filesystem event handler so we can have it do more stuff.
 class Handler(FileSystemEventHandler):
     # on_created is a method that takes action only on newly created files.
     # there are also methods for modified and deleted etc
     def on_created(self, event):
         if event.is_directory:
+            #we're ignoring directories here.
             pass
         else:
         # here we're getting the name of the file / filepath for a new file.
             filenamefromwatchdog = event.src_path
             logging.info(filenamefromwatchdog)
-            windowsfilename = filenamefromwatchdog.replace(os.sep, '/')
-            print (windowsfilename)
-        # here we're getting the filesize (sort of unnessacary
+        # here we're getting the filesize (sort of unnecessary
         # now but i'm thinking of adding conditional multipart based on size
-            statinfo = os.stat(filenamefromwatchdog).st_size
-            logging.info("the filesize in bytes is " + str(statinfo))
+            try:
+                statinfo = os.stat(filenamefromwatchdog).st_size
+                logging.info("the filesize in bytes is " + str(statinfo))
+            except ValueError as e:
+                logging.info('error on filesize query' + e)
+                pass
         # try magic, this is trying to get the mime-type of the file which is
-            mimet = magic.from_file(filenamefromwatchdog, mime=True)
-            print(mimet)
-            logging.info("mimetype is" + mimet)
-            print ('Filesize is:' + str(statinfo), 'bytes')
+            try:
+                mimet = magic.from_file(filenamefromwatchdog, mime=True)
+                print(mimet)
+                logging.info("mimetype is" + mimet)
+            except ValueError as e:
+                logging.info('error on mimetype' + e)
+                pass
+
 
         # next section is the upload itself, vars for the destination have been set up in our config file
         # set the session up with the tokens etc
-            s = requests.Session()
-            cookies = {'token':  token }
-            urlbucket=domain+bucket
-        # here we pull the file name and open the file.
-            filename = filenamefromwatchdog
-            uploaddata = {'file': open(filenamefromwatchdog, 'rb')}
         # set up the headers
-            mimet2 = "'{}'".format(mimet)
-            content = {'Content-Type': mimet2 }
-        # here we do the post.
-            r = s.post(urlbucket + filename, data=open(filename, 'rb').read(), headers=content, cookies=cookies)
-            logging.info("the result of the post was " + r.text)
-            logging.info("the returncode for the http return headers were " + str(r.headers))
-            logging.info("the http status code we got was " + str(r.status_code))
-            print(r.text)
-
-    def on_modified(self, event):
-        if event.is_directory:
-            pass
-        else:
-        # here we're getting the name of the file / filepath for a new file.
-            filenamefromwatchdog = event.src_path
-            logging.info(filenamefromwatchdog)
-            windowsfilename = filenamefromwatchdog.replace(os.sep, '/')
-            print (windowsfilename)
-        # here we're getting the filesize (sort of unnessacary
-        # now but i'm thinking of adding conditional multipart based on size
-            statinfo = os.stat(filenamefromwatchdog).st_size
-            logging.info("the filesize in bytes is " + str(statinfo))
-        # try magic, this is trying to get the mime-type of the file which is
-            mimet = magic.from_file(filenamefromwatchdog, mime=True)
-            print(mimet)
-            logging.info("mimetype is" + mimet)
-            print ('Filesize is:' + str(statinfo), 'bytes')
-
-        # next section is the upload itself, vars for the destination have been set up in our config file
-        # set the session up with the tokens etc
-            s = requests.Session()
-            cookies = {'token':  token }
-            urlbucket=domain+bucket
-        # here we pull the file name and open the file.
             filename = filenamefromwatchdog
-            uploaddata = {'file': open(filenamefromwatchdog, 'rb')}
-        # set up the headers
-            mimet2 = "'{}'".format(mimet)
-            content = {'Content-Type': mimet2 }
+            path = Path(filenamefromwatchdog)
+            itemname = str(path).strip("./")
+
+            print(itemname)
+
+            if itemname[-4:] == "pcap":
+                pcapinterpret(itemname)
+                print(metas)
+            else:
+                pass
+            metas.update({'Content-Type': mimet })
+
 
         # here we do the post.
-            r = s.post(urlbucket + filename, data=open(filename, 'rb').read(), headers=content, cookies=cookies)
-            logging.info("the result of the post was " + r.text)
-            logging.info("the returncode for the http return headers were " + str(r.headers))
-            logging.info("the http status code we got was " + str(r.status_code))
-            print(r.text)
+            httpwrite(metas,itemname,filenamefromwatchdog)
+
+
+
+
 
 
 
@@ -178,10 +214,11 @@ class Handler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(filename='watcher3.log',level=logging.INFO,
+    logging.basicConfig(filename=logginglocation + "watcher.log",level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    path = sys.argv[1] if len(sys.argv) > 1 else '.'
+#    path = sys.argv[1] if len(sys.argv) > 1 else '.'
+    path = directoryfromfile
     event_handler = Handler()
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)

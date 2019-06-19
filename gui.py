@@ -6,22 +6,39 @@ from tkinter import messagebox
 import requests
 
 def writetofile():
-    f = open("test.txt", "w+")
+    f = open("config.ini", "w+")
     res = txt.get()
     res2= txt2.get()
     res3= txt3.get()
     res4= txt4.get()
     res5= txt5.get()
-    f.write("Log_file = " + res)
+
+    f.write("[domain]")
+    f.write("\n")
+    f.write("Domain : " + res3)
     f.write("\n")
 
-    f.write("Watch_folder = " + res2)
+    f.write("[bucket]")
     f.write("\n")
-    f.write("Domain = " + res3)
+    f.write("bucket : " + res5)
     f.write("\n")
-    f.write("Token = " + res4)
+
+    f.write("[token]")
     f.write("\n")
-    f.write("bucket = " + res5)
+    f.write("token : " + res4)
+    f.write("\n")
+
+    f.write("[directory]")
+    f.write("\n")
+    f.write("directory :" + res2 )
+    f.write("\n")
+
+
+    f.write("[logfile]")
+    f.write("\n")
+    f.write("logfile : " + res)
+    f.write("\n")
+
     f.close()
 
 def browse_button():
