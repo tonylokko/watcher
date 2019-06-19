@@ -166,20 +166,12 @@ class Handler(FileSystemEventHandler):
             logging.info(filenamefromwatchdog)
         # here we're getting the filesize (sort of unnecessary
         # now but i'm thinking of adding conditional multipart based on size
-            try:
-                statinfo = os.stat(filenamefromwatchdog).st_size
-                logging.info("the filesize in bytes is " + str(statinfo))
-            except ValueError as e:
-                logging.info('error on filesize query' + e)
-                pass
+            statinfo = os.stat(filenamefromwatchdog).st_size
+            logging.info("the filesize in bytes is " + str(statinfo))
         # try magic, this is trying to get the mime-type of the file which is
-            try:
-                mimet = magic.from_file(filenamefromwatchdog, mime=True)
-                print(mimet)
-                logging.info("mimetype is" + mimet)
-            except ValueError as e:
-                logging.info('error on mimetype' + e)
-                pass
+            mimet = magic.from_file(filenamefromwatchdog, mime=True)
+            print(mimet)
+            logging.info("mimetype is" + mimet)
 
 
         # next section is the upload itself, vars for the destination have been set up in our config file
@@ -187,7 +179,7 @@ class Handler(FileSystemEventHandler):
         # set up the headers
             filename = filenamefromwatchdog
             path = Path(filenamefromwatchdog)
-            itemname = str(path).strip("./")
+            itemname = str(path.name)
 
             print(itemname)
 
